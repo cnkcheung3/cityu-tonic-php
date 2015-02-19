@@ -1,0 +1,55 @@
+CREATE TABLE Credential (
+     user_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     account VARCHAR(16) NOT NULL,
+     password VARCHAR(32) NOT NULL,
+     PRIMARY KEY (user_id)
+)
+
+CREATE TABLE Credential_token (
+    user_id MEDIUMINT NOT NULL,
+    token VARCHAR(32) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Credential(user_id)
+)
+
+CREATE TABLE User_profile (
+    user_id MEDIUMINT NOT NULL,
+    about VARCHAR(256),
+    propic_url VARCHAR(128), 
+    FOREIGN KEY (user_id) REFERENCES Credential(user_id)
+)
+
+CREATE TABLE Feed (
+    feed_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_id MEDIUMINT NOT NULL,
+    audio_url VARCHAR(128),
+    title VARCHAR(256),
+    location VARCHAR(64),
+    PRIMARY KEY (feed_id),
+    FOREIGN KEY (user_id) REFERENCES Credential(user_id)
+)
+
+Create TABLE Comment (
+    comment_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    feed_id MEDIUMINT NOT NULL,
+    content VARCHAR(256),
+    user_id MEDIUMINT NOT NULL,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (feed_id) REFERENCES Feed(feed_id)
+)
+
+Create TABLE Follow(
+    me_id MEDIUMINT NOT NULL,
+    following_id MEDIUMINT NOT NULL 
+)
+
+Create TABLE Request(
+    me_id MEDIUMINT NOT NULL,
+    request_id MEDIUMINT NOT NULL 
+)
+
+Create TABLE Likes(
+    feed_id MEDIUMINT NOT NULL,
+    user_id MEDIUMINT NOT NULL,
+    FOREIGN KEY (feed_id) REFERENCES Feed(feed_id),
+    FOREIGN KEY (user_id) REFERENCES Credential(user_id)
+)
