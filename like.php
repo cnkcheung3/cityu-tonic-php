@@ -21,6 +21,7 @@ function like_feed($body, $conn){
         if($result){
             $response['msg'] = "success";
             $response['status'] = "200";
+            $response['like'] = get_Like_Count($fid, $conn);
         }else{
             $response['msg'] = "failure: some error during insertion";
             $response['status'] = "404";
@@ -44,12 +45,19 @@ function unlike_feed($body, $conn){
     if($result){
         $response['msg'] = "success";
         $response['status'] = "200";
+        $response['like'] = get_Like_Count($fid, $conn);
     }else{
         $response['msg'] = "failure: some error during deletion";
         $response['status'] = "404";
     }
     echo json_encode($response);
     
+}
+
+function get_Like_Count($fid, $conn){
+    $sql = "SELECT * FROM Likes WHERE feed_id = '$fid'";
+    $result = $conn->query($sql);
+    return $result->num_rows;
 }
 
 

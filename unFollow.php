@@ -14,6 +14,7 @@ function unfollow($body, $conn){
     if($result){
         $response['msg'] = "success";
         $response['status'] = "200";
+        $response['relation'] = "none";
     }else{
         $response['msg'] = "failure: some error during deletion";
         $response['status'] = "404";

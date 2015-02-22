@@ -58,6 +58,7 @@ function retrieve_user_profile($me_id, $user_id, $conn){
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     
+    $arr['id'] = $user_id;
     $arr['des'] = $row['about'];
     $arr['pic_url'] = $row['propic_url'];
     $arr['name'] = $row['account'];
